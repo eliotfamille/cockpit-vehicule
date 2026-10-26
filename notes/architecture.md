@@ -5,7 +5,9 @@
 /home/eliot/qt_projet/cockpit_vehicule/
 ├── CMakeLists.txt              # Root CMake, defines app + QML module
 ├── src/
-│   └── main.cpp                # Entry point, loads QML module
+│   ├── main.cpp                # Entry point, loads QML module
+│   ├── VehicleData.h           # QObject with Q_PROPERTY (speed, rpm, temperature)
+│   └── VehicleData.cpp         # Implementation with clamp + emit signals
 ├── qml/
 │   └── Main.qml                # Main window (ApplicationWindow)
 ├── build/                      # Build output (ignored by git)
@@ -16,14 +18,16 @@
 
 ### CMakeLists.txt key points:
 - `qt_add_executable(appcockpit_vehicule src/main.cpp)` - creates executable
-- `qt_add_qml_module(appcockpit_vehicule URI cockpit_vehicule QML_FILES qml/Main.qml)` - registers QML module
+- `qt_add_qml_module(appcockpit_vehicule URI cockpit_vehicule VERSION 1.0 QML_FILES qml/Main.qml SOURCES src/VehicleData.h src/VehicleData.cpp)` - registers QML module + C++ types
 - Module URI: `cockpit_vehicule`
 - QML files compiled into resources, loaded via `engine.loadFromModule("cockpit_vehicule", "Main")`
 
-### main.cpp:
+### main.cpp (current - test mode):
 ```cpp
-QQmlApplicationEngine engine;
-engine.loadFromModule("cockpit_vehicule", "Main");
+QCoreApplication app(argc, argv);
+VehicleData data;
+// qDebug tests...
+return 0;
 ```
 
 ### Main.qml:
@@ -33,9 +37,12 @@ import QtQuick.Controls
 ApplicationWindow { ... }
 ```
 
-## Planned C++ Classes (not yet created)
-- `VehicleData` (src/vehicledata.h/.cpp) - QObject with Q_PROPERTY for speed, rpm, temperature
-- Will be exposed to QML via `qmlRegisterType` or `QML_ELEMENT` + `qt_add_qml_module` SOURCES
+## C++ Classes (verified)
+- `VehicleData` (src/VehicleData.h/.cpp)
+  - Inherits QObject, Q_OBJECT macro
+  - Properties: speed (0-300), rpm (0-8000), temperature (-40-150)
+  - Each: Q_PROPERTY with READ/WRITE/NOTIFY, getter const, setter with clamp + emit
+  - Registered in CMake SOURCES for MOC
 
 ## Build System
 - Qt 6.12, CMake 3.16+
