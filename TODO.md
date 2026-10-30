@@ -3,7 +3,7 @@
 ## Semaine 1 : le socle
 - [x] dépôt, .gitignore, CMakeLists.txt, une fenêtre QML vide qui s'ouvre. Commit: `chore: project skeleton`
 - [x] classe VehicleData avec speed, rpm, temperature en Q_PROPERTY (lecture, écriture, signal NOTIFY). Vérifie avec qDebug, sans QML. Commit: `feat: VehicleData properties`
-- [ ] expose la classe à QML et affiche la vitesse en texte. Commit: `feat: expose VehicleData to QML`
+- [x] expose la classe à QML et affiche la vitesse en texte. Commit: `feat: expose VehicleData to QML`
 - [ ] un QTimer fait varier les valeurs de façon réaliste (accélération progressive, régime lié à la vitesse, température qui monte lentement). Commit: `feat: vehicle simulation`
 - [ ] premier compteur visuel (aiguille ou arc) avec une animation (Behavior) pour que le mouvement soit fluide. Commit: `feat: speedometer`
 

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
+import cockpit_vehicule 1.0
 
 
 ApplicationWindow {
@@ -39,7 +40,7 @@ ApplicationWindow {
                     color: window.lightMode ? window.dark : window.light
                     font.pixelSize: 120
                     fontSizeMode: Text.Fit
-                    text: qsTr("Hello World")
+                    text: "Speed: "+car.speed+" km/h"
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.margins: 16

@@ -17,12 +17,16 @@ qt_add_executable(appcockpit_vehicule
     src/main.cpp
 )
 
+target_include_directories(appcockpit_vehicule PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 qt_add_qml_module(appcockpit_vehicule
     URI cockpit_vehicule
     VERSION 1.0
     QML_FILES
         qml/Main.qml
-        SOURCES src/VehicleData.h src/VehicleData.cpp
+    SOURCES
+        src/VehicleData.h
+        src/VehicleData.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

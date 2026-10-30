@@ -2,10 +2,13 @@
 #define VEHICLEDATA_H
 
 #include <QObject>
+#include <QtQml>
 
 class VehicleData : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+
 public:
     explicit VehicleData(QObject* parent = nullptr);
 
